@@ -15,12 +15,10 @@ const handler = NextAuth({
         })],
     callbacks: {
         async jwt({ token, account, profile }) {
-            console.log("inside jwt");
             return token;
         },
 
         async session({ session }) {
-            console.log("inside session");
             const sessionUser = await User.findOne({
                 email: session.user.email
             });
@@ -30,7 +28,6 @@ const handler = NextAuth({
             return session;
         },
         async signIn({ profile }) {
-            console.log("inide signin");
             try {
                 await connectToDB();
 

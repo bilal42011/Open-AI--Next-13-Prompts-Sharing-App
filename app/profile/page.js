@@ -14,7 +14,6 @@ const MyProfile = () => {
     const [posts, setPosts] = useState([]);
 
     const handleEdit = (post) => {
-        console.log("Inside handleEdit");
         router.push(`/update-prompt?id=${post._id}`)
     }
 
@@ -43,7 +42,6 @@ const MyProfile = () => {
             try {
                 const response = await fetch(`/api/users/${session?.user?.id}/posts`);
                 const data = await response.json();
-                console.log(data);
                 setPosts(data);
             }
             catch (err) {
