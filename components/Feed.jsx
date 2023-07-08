@@ -6,7 +6,6 @@ import { useRouter, usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
 
 const PromptCardList = ({ data, handleTagClick, handleProfileClick }) => {
-  console.log(data);
 
   return <div className="mt-16 prompt_layout">
     {
@@ -29,12 +28,16 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
   const [searchedResults, setSearchedResults] = useState([]);
-  
+
   const handleProfileClick = (post) => {
     if (pathName !== "/profile") {
       session?.user?.id === post?.creator?._id ? router.push("/profile") :
         router.push(`/profile/${post?.creator?._id}?name=${post?.creator?.username}`);
     }
+  }
+
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
   }
 
   const filterPrompts = (searchtext) => {
@@ -92,7 +95,7 @@ const Feed = () => {
           handleProfileClick={handleProfileClick} /> :
         <PromptCardList
           data={posts}
-          handleTagClick={() => { }}
+          handleTagClick={handleTagClick}
           handleProfileClick={handleProfileClick} />}
     </section>
   )
